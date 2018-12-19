@@ -26,47 +26,47 @@ stages:
 
 jobs:
   include:
-    
-    # Install all dependencies and cache them
-    - stage: prepare cache
-      script: true
-      install:
-        - npm install
-        - npx lerna bootstrap --loglevel=debug
-    
-    # Initial stage with lib tests
-    - stage: lib tests
-      install: npx lerna bootstrap --loglevel=debug
-      script: npx lerna run test --concurrency=1 --stream=true --scope=zos-lib
-    
-    # Test stage for Vouching
-    - stage: tests
-      name: Vouching tests
-      install: npx lerna bootstrap --loglevel=debug
-      script: npx lerna run test --concurrency=1 --stream=true --scope=zos-vouching
 
-    # Test stage for CLI on Linux
-    - stage: tests
-      name: CLI tests on Linux
-      os: linux
-      install: npx lerna bootstrap --loglevel=debug
-      script: npx lerna run test --concurrency=1 --stream=true --scope=zos
-    
-    # Test stage for CLI on OSX
-    - stage: tests
-      name: CLI tests on OSX
-      os: osx
-      install:
-        - npm install
-        - npx lerna bootstrap --loglevel=debug
-      script: npx lerna run test --concurrency=1 --stream=true --scope=zos
-    
-    # Test stage for complex-example
-    - stage: tests
-      name: Complex example tests
-      install: npx lerna bootstrap --loglevel=debug
-      script: npx lerna run test --concurrency=1 --stream=true --scope=zos-lib-complex-example
-    
+#    # Install all dependencies and cache them
+#    - stage: prepare cache
+#      script: true
+#      install:
+#        - npm install
+#        - npx lerna bootstrap --loglevel=debug
+#
+#    # Initial stage with lib tests
+#    - stage: lib tests
+#      install: npx lerna bootstrap --loglevel=debug
+#      script: npx lerna run test --concurrency=1 --stream=true --scope=zos-lib
+#
+#    # Test stage for Vouching
+#    - stage: tests
+#      name: Vouching tests
+#      install: npx lerna bootstrap --loglevel=debug
+#      script: npx lerna run test --concurrency=1 --stream=true --scope=zos-vouching
+#
+#    # Test stage for CLI on Linux
+#    - stage: tests
+#      name: CLI tests on Linux
+#      os: linux
+#      install: npx lerna bootstrap --loglevel=debug
+#      script: npx lerna run test --concurrency=1 --stream=true --scope=zos
+#
+#    # Test stage for CLI on OSX
+#    - stage: tests
+#      name: CLI tests on OSX
+#      os: osx
+#      install:
+#        - npm install
+#        - npx lerna bootstrap --loglevel=debug
+#      script: npx lerna run test --concurrency=1 --stream=true --scope=zos
+#
+#    # Test stage for complex-example
+#    - stage: tests
+#      name: Complex example tests
+#      install: npx lerna bootstrap --loglevel=debug
+#      script: npx lerna run test --concurrency=1 --stream=true --scope=zos-lib-complex-example
+
     # Integration tests on local geth
     - stage: integration tests
       name: Local geth node
