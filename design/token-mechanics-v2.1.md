@@ -1,15 +1,16 @@
 # Token Mechanics V2.1
 
-### Assumptions
-- Users will register/deprecate versions of a package. 
-- Users will vouch/unvouch for an specific version of a package. 
-- Users will be able to move their vouch through different versions of the same package. 
-- Challengers will challenge a specific version of a package.
-- The minimum stake is validated against the summation of the amount vouched by the package owner for each of its version.
+## Rules
+- Developers will register/deprecate versions of a package. Publishing a new version should require a min stake (note that this may not be possible to implement). This min stake does not necessarily replace a global min stake for the package, calculated as the sum of all stakes.
+- Users will vouch/unvouch for a specific version of a package. A user cannot be slashed for a bug found in a version he did not vouch for (or did not review at all).
+- Users will be able to move their vouch through different versions of the same package. The developer does not have a penalty for moving stake within his own package.
+- Challengers will challenge one or more specific versions of a package. Since a bug may be present in more than one version, a challenge should be issuable to all versions where the bug is present.
 - For non-owner users, there is no penalization for unvouching/moving tokens. Package owners will have to make sure the minimum stake is reached.
-- Packages reputation could be calculated based on total vouch amount weighted by the registered versions
+- Packages reputation could be calculated based on total vouch amount, potentially weighted by the registered versions. Vouching in more recent versions should weight more.
+- Rewards for challenges should be a percentage of the stake of the versions it challenges. Once the challenge is issued, the absolute value of the reward is calculated based on the stake at the moment, and those tokens are frozen. This means that challenges are rewarded based on the order in which they are issued, not the order in which they are accepted. Also, users cannot unstake vouching that is frozen by a challenge (question: how do we implement this freezing?).
+- To prevent developers accepting challenges issued by themselves, and thus stealing funds from other vouchers, accepted challenges must also undergo a challenge period in which any staker can request it to be submitted to a public vote. The same flow can be implemented for rejections.
 
-### Issues
+## Issues
 1- How we can avoid users unvouching their tokens given a new critical challenge yet unsolved?
 > We can either use cyclic windows to state when users can challenge, when users can vouch/unvouch, and when challenges 
   will be solved. Or, we can lock a fraction of the vouched tokens of each user to ensure we can pay successful 
@@ -40,7 +41,7 @@
 > Users will have to provide a certain amount of tokens the next time they register a version to reach the minimum stake.
   We should make sure this is an edge scenario since we will be forcing package registrars to buy more tokens.
 
-### Proof of concept
+## Proof of concept
 
 #### Types
 ```
